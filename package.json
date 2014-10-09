@@ -1,0 +1,56 @@
+{
+  "name": "brava-gulpjs",
+  "version": "0.1.0",
+  "description": "Base for Angular app development using Gulp",
+  "scripts": {
+    "start": "npm i && gulp install && gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iFind/courier.ifind.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iFind/courier.ifind.io/issues"
+  },
+  "private": "true",
+  "homepage": "https://github.com/iFind/courier.ifind.io",
+  "devDependencies": {
+    "events": "^1.0.2",
+    "gulp": "^3.8.8",
+    "gulp-autoprefixer": "0.0.9",
+    "gulp-changed": "^1.0.0",
+    "gulp-concat": "^2.3.4",
+    "gulp-filter": "^1.0.2",
+    "gulp-flatten": "0.0.3",
+    "gulp-imagemin": "^1.0.1",
+    "gulp-inject": "^1.0.2",
+    "gulp-install": "^0.2.0",
+    "gulp-jshint": "^1.8.5",
+    "gulp-load-plugins": "^0.6.0",
+    "gulp-minify-css": "^0.3.10",
+    "gulp-minify-html": "^0.1.5",
+    "gulp-newer": "^0.3.0",
+    "gulp-notify": "^1.8.0",
+    "gulp-plumber": "^0.6.5",
+    "gulp-reload": "0.0.4",
+    "gulp-rename": "^1.2.0",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-size": "^1.1.0",
+    "gulp-sourcemaps": "^1.2.2",
+    "gulp-uglify": "^1.0.1",
+    "gulp-using": "0.0.1",
+    "gulp-util": "^3.0.1",
+    "gulp-webserver": "^0.8.3",
+    "imagemin-pngcrush": "^1.0.0",
+    "jshint-stylish": "^1.0.0",
+    "main-bower-files": "^2.0.0",
+    "map-stream": "^0.1.0",
+    "path": "^0.4.9",
+    "require-dir": "^0.1.0",
+    "rimraf": "^2.2.8",
+    "run-sequence": "^0.3.7",
+    "shelljs": "^0.3.0"
+  }
+}
