@@ -13,6 +13,7 @@ var gulp = require('gulp'),
     camelize: true,
     pattern: ['events', 'gulp-*', 'imagemin-pngcrush', 'main-bower-files', 'map-stream', 'opn', 'rimraf', 'run-sequence', 'shelljs']
   });
+$.args = require('yargs').argv;
 
 // Project paths
 var paths = {
@@ -96,8 +97,10 @@ gulp.task('buildClear', function(cb) {
 
 // Install Components
 gulp.task('install', function() {
-  return gulp.src(['./bower.json', './package.json'])
-    .pipe($.install());
+  if ($.args.install) {
+    return gulp.src(['./bower.json', './package.json'])
+      .pipe($.install());
+  }
 });
 
 // Build Bower Components
@@ -166,7 +169,7 @@ gulp.task('buildStyles', function() {
       style: 'compressed',
       precision: 3
     }))
-    // .pipe($.autoprefixer(autoPrefixerBrowsers))
+    .pipe($.autoprefixer(autoPrefixerBrowsers))
     .pipe($.rename(function(path) {
       path.basename = pkg.name;
     }))
@@ -257,11 +260,6 @@ gulp.task('server', function() {
     }));
 });
 
-// Open Browser
-gulp.task('openBrowser', function() {
-  return $.opn('http://' + server.host + ':' + server.port);
-});
-
 // Check if Git is installed
 gulp.task('git-check', function(done) {
   var git = $.util.colors.green('  Git is installed!');
@@ -277,17 +275,18 @@ gulp.task('git-check', function(done) {
 
 // Watch
 gulp.task('watch', function() {
-  gulp.watch(paths.source.sass + '/**/*.sass', ['buildStyles']);
-  gulp.watch(paths.source.fonts + '/**/*.{eot,svg,ttf,woff}', ['buildFonts']);
-  gulp.watch(paths.source.js + '/**/*.js', ['buildScripts']);
-  gulp.watch(paths.source.images + '/**/*.{svg,png,gif,jpg,jpeg}', ['buildImages']);
-  gulp.watch(paths.source.root + '/**/*.html', ['buildHtml']);
-  gulp.watch('./gulpfile.js', ['build']);
+  if(!$.args.nowatch) {
+    gulp.watch(paths.source.sass + '/**/*.sass', ['buildStyles']);
+    gulp.watch(paths.source.fonts + '/**/*.{eot,svg,ttf,woff}', ['buildFonts']);
+    gulp.watch(paths.source.js + '/**/*.js', ['buildScripts']);
+    gulp.watch(paths.source.images + '/**/*.{svg,png,gif,jpg,jpeg}', ['buildImages']);
+    gulp.watch(paths.source.root + '/**/*.html', ['buildHtml']);
+  }
 });
 
 // Build Main Task
 gulp.task('build', function(done) {
-  $.runSequence(['buildClear'], 'buildBower', ['buildImages', 'buildStyles', 'buildScripts', 'buildFonts'], 'buildHtml', 'server', 'watch', done);
+  $.runSequence(['buildClear'], 'buildBower', 'install', ['buildImages', 'buildStyles', 'buildScripts', 'buildFonts'], 'buildHtml', 'server', 'watch', done);
 });
 
 // Default Task
