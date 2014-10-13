@@ -162,20 +162,15 @@ gulp.task('buildStyles', function() {
       errorHandler: onError
     }))
     .pipe($.rubySass({
-      sourcemapPath: paths.source.sass,
-      style: 'expanded',
-      precision: 10
+      sourcemapPath: '.',
+      style: 'compressed',
+      precision: 3
     }))
-    .pipe($.autoprefixer(autoPrefixerBrowsers))
-    .pipe($.minifyCss({
-      keepBreaks: true
+    // .pipe($.autoprefixer(autoPrefixerBrowsers))
+    .pipe($.rename(function(path) {
+      path.basename = pkg.name;
     }))
-    .pipe($.rename(pkg.name + '.css'))
     .pipe(gulp.dest(paths.build.css))
-    .pipe($.filter(paths.build.css + '/**/*.css'))
-    .pipe($.reload({
-      stream: true
-    }))
     .pipe($.size());
 });
 
@@ -287,9 +282,13 @@ gulp.task('watch', function() {
   gulp.watch(paths.source.js + '/**/*.js', ['buildScripts']);
   gulp.watch(paths.source.images + '/**/*.{svg,png,gif,jpg,jpeg}', ['buildImages']);
   gulp.watch(paths.source.root + '/**/*.html', ['buildHtml']);
+  gulp.watch('./gulpfile.js', ['build']);
 });
 
 // Build Main Task
 gulp.task('build', function(done) {
   $.runSequence(['buildClear'], 'buildBower', ['buildImages', 'buildStyles', 'buildScripts', 'buildFonts'], 'buildHtml', 'server', 'watch', done);
 });
+
+// Default Task
+gulp.task('default', ['build']);

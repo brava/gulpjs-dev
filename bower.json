@@ -1,0 +1,26 @@
+{
+  "name": "courier.ifind.io",
+  "version": "0.0.1",
+  "homepage": "https://github.com/iFind/courier.ifind.io",
+  "authors": [
+    "iFind <ifind@ifind.io>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.25",
+    "ModelCore": "~1.0.1",
+    "angular-ui-router": "~0.2.11",
+    "angular-i18n-service": "~1.0.0",
+    "storage-objects": "*"
+  },
+  "resolutions": {
+    "angular": "~1.2.25"
+  }
+}
